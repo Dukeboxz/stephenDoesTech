@@ -1,4 +1,8 @@
 ---
+import { Image } from 'astro:assets';
+import London from '../assets/about-london.jpg';
+import MachuPicchu from '../assets/about-machu-picchu.jpg';
+import TajMahal from '../assets/about-taj-mahal.jpg';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
@@ -13,6 +17,11 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	<body>
 		<Header />
 		<main>
+			<div class="banner">
+				<Image src={London} width={480} alt="Stephen on London Bridge with The Shard behind him" />
+				<Image src={MachuPicchu} width={480} alt="Stephen at Machu Picchu" />
+				<Image src={TajMahal} width={480} alt="Stephen in front of the Taj Mahal" />
+			</div>
 			<h1>Welcome</h1>
 			<p>
 				My name is Stephen and I do tech. I am a senior software developer who has worked in a range
@@ -24,3 +33,24 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		<Footer />
 	</body>
 </html>
+
+<style>
+	.banner {
+		display: flex;
+		gap: 0.5em;
+		height: 280px;
+		margin-bottom: 1.5em;
+	}
+	.banner img {
+		flex: 1;
+		min-width: 0;
+		height: 100%;
+		object-fit: cover;
+		border-radius: 8px;
+	}
+	@media (max-width: 720px) {
+		.banner {
+			height: 160px;
+		}
+	}
+</style>
