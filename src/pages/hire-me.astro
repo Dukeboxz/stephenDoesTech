@@ -1,0 +1,44 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+
+const description =
+	'Senior software developer and team lead with over 9 years of experience integrating with external APIs and over 15 years leading teams.';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Hire Me | ${SITE_TITLE}`} description={description} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Hire Me</h1>
+			<p>
+				If you are looking for someone who can lead a team through the problems of flaky integrations
+				and vague requirements, and still deliver value, then maybe I can help. I have over 9 years of
+				experience integrating systems with external APIs and over 15 years of experience leading teams
+				and delivering projects that give business value.
+			</p>
+			<ul>
+				<li>
+					Led a team to create a single TMForum API for all ordering of broadband services. Serviced
+					over 3000 customers a month with 1000s of messages a day.
+				</li>
+				<li>
+					Created a system to integrate with the French porting authority and Orange Mobile APIs to
+					ensure a painless process for porting mobile numbers.
+				</li>
+			</ul>
+			<p>
+				If you want to hire me, email me at{' '}
+				<a href="mailto:stephenJJackson@sky.com">stephenJJackson@sky.com</a> for a chat about what I can
+				do for you.
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>
