@@ -1,0 +1,209 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+
+const description =
+	'Career history of Stephen, a senior software engineer and team lead: roles, dates, responsibilities and achievements.';
+
+interface Job {
+	title: string;
+	company: string;
+	dates: string;
+	intro?: string;
+	bullets?: string[];
+}
+
+const jobs: Job[] = [
+	{
+		title: 'Senior Software Engineer',
+		company: 'Giacom Communications Ltd',
+		dates: 'May 2025 – September 2026',
+		intro:
+			'Transferred from Daisy under TUPE. Technical lead for a vendor aggregation platform giving customers one interface to order telecoms connections and products from multiple suppliers. Containerised .NET 8 / ASP.NET Core microservices on AWS ECS Fargate with SQL Server and MySQL.',
+		bullets: [
+			'Led an Agile team of 4 developers, owning delivery and the platform in production; allocated refined work to the engineer best suited to it, based on their skills or on where it would help them grow.',
+			"Built a high-performing, self-sufficient team: coached engineers to own supplier integrations end to end, from the supplier's API specification to production, using reusable components I designed. Integrated 5 suppliers including BT Wholesale and halved onboarding time from 6 months to 3.",
+			"Raised quality through test tooling: built a containerised .NET 8 simulator of BT Wholesale's APIs that let test engineers and developers control callbacks, failures, response timing and message order, which the supplier's sandbox could not. It caught missed- and delayed-message bugs before release and was used by the whole team.",
+			"Led adoption of AI-assisted development with guardrails: introduced GitHub Copilot pre-review of pull requests against our coding-standards and config documents, alongside the CI standards check and human review, so AI-assisted changes were validated before merge; led a project exposing the platform's API as an MCP server for AI assistants.",
+			'Removed a delivery bottleneck: introduced a CI check that flags coding-standard issues on every pull request, so reviewers focus on logic and design. This cut PR approval time from days to hours.',
+			'Developed junior engineers: wrote development-approach guides, paired on live work and reviewed around 80 pull requests in six months; coached a ticket-focused junior into owning whole features by talking through the business context and design trade-offs.',
+			'Stayed hands-on: built the BT Wholesale broadband activation component, handling 3,000+ accounts a month, and took operational ownership of the platform: handled production incidents end to end, assessing severity, fixing, keeping stakeholders informed and capturing lessons learned, with Serilog logging for diagnosis.',
+		],
+	},
+	{
+		title: 'Senior Software Engineer',
+		company: 'Daisy Communications Ltd',
+		dates: 'December 2024 – May 2025',
+		bullets: [
+			'Led a cross-functional team of 5 developers, QA/test engineers and BAs maintaining a CRM used daily by hundreds of agents to sell and manage broadband, mobile and VoIP. Developed the CRM\'s processes to meet Ofcom and GDPR regulations.',
+			'Built capability across the team by changing process so that all developers wrote technical solutions for feature requests, not just the senior developers.',
+		],
+	},
+	{
+		title: 'Senior .NET Developer',
+		company: 'Cellhire Plc',
+		dates: 'March 2022 – December 2024',
+		bullets: [
+			'Led a team of 4 developers, accountable for the quality and timeliness of their delivery; hired an engineer into the team.',
+			"Led the team that built the microservices and APIs letting Cellhire operate as a Lite MVNO in France: .NET and React (TypeScript) services containerised on Azure Kubernetes Service, an API gateway, and Azure Queues and Functions for asynchronous processing, integrating with the network operator's APIs and internal billing. This helped Cellhire win a major contract.",
+			'Raised quality by adding automated Jest tests to the staging pipeline for React applications, cutting post-release bugs by around 25%.',
+			'Removed a slow, error-prone handover where admin staff re-keyed new customers from HubSpot: built a one-click integration into the client portal, so new customers went straight into billing and could order SIMs. Sale-to-customer work went from hours to minutes.',
+			'Turned a manual, command-by-command process into a fire-and-forget product: customers specify how SIMs should be provisioned and the system automates it.',
+			'Worked directly with sales to shape customer requirements into features; added white-label support so the React SIM portal could be sold as SaaS.',
+		],
+	},
+	{
+		title: 'Applications Team Leader',
+		company: 'Paul Smith Ltd',
+		dates: 'July 2020 – March 2022',
+		bullets: [
+			'Led a team of 4 software engineers and BI developers maintaining business-critical retail applications.',
+			'Worked with the project manager to estimate, plan and break new features into tasks for the team.',
+			"Introduced new ways to deploy the business's applications, including Azure cloud services.",
+		],
+	},
+	{
+		title: '.NET Developer',
+		company: 'Paul Smith Ltd',
+		dates: 'August 2019 – July 2020',
+		intro:
+			'Built web and desktop applications for stock receiving and distribution, integrating with third-party logistics systems.',
+	},
+	{
+		title: 'Junior Software Engineer',
+		company: 'Technolog Ltd',
+		dates: 'October 2017 – August 2019',
+		intro:
+			'One of 6 developers building web applications for the water and gas industries in C# and JavaScript.',
+	},
+	{
+		title: 'Regeneration & Growth Manager',
+		company: 'Amber Valley Borough Council',
+		dates: 'October 2014 – March 2016',
+		intro:
+			'Managed regeneration and growth programmes, working with external partners and suppliers and reporting to senior stakeholders. Line-managed a team of 8 and recruited at least 10 staff. Delivered a programme of projects with a £5m total budget from inception to completion. These included a change management project that involved the implementation of new software products and managing the associated change to people and business process to ensure the new software met its goals.',
+	},
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Experience | ${SITE_TITLE}`} description={description} />
+		<style>
+			.accordion {
+				margin-top: 2rem;
+				display: flex;
+				flex-direction: column;
+				gap: 0.75rem;
+			}
+			details {
+				background: white;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 12px;
+				transition: box-shadow 0.2s ease;
+			}
+			details[open] {
+				box-shadow: var(--box-shadow);
+			}
+			summary {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 1rem;
+				padding: 1rem 1.25rem;
+				cursor: pointer;
+				list-style: none;
+				border-radius: 12px;
+			}
+			summary::-webkit-details-marker {
+				display: none;
+			}
+			summary:hover .job-title,
+			summary:focus-visible .job-title {
+				color: var(--accent);
+			}
+			summary:focus-visible {
+				outline: 2px solid var(--accent);
+				outline-offset: 2px;
+			}
+			.job-title {
+				display: block;
+				margin: 0;
+				font-size: 1.1rem;
+				font-weight: 700;
+				line-height: 1.3;
+				color: rgb(var(--black));
+			}
+			.job-dates {
+				display: block;
+				font-size: 0.85rem;
+				color: rgb(var(--gray));
+			}
+			.chevron {
+				flex-shrink: 0;
+				width: 0.6rem;
+				height: 0.6rem;
+				border-right: 2px solid rgb(var(--gray));
+				border-bottom: 2px solid rgb(var(--gray));
+				transform: rotate(45deg);
+				transition: transform 0.2s ease;
+			}
+			details[open] .chevron {
+				transform: rotate(-135deg);
+			}
+			.content {
+				padding: 0 1.25rem 1.25rem;
+				font-size: 0.9rem;
+				line-height: 1.6;
+			}
+			.content p {
+				margin: 0 0 0.75rem;
+			}
+			.content ul {
+				margin: 0;
+				padding-left: 1.25rem;
+			}
+			.content li {
+				margin-bottom: 0.6rem;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Experience</h1>
+			<p>Select a role to see what I did and what I achieved.</p>
+			<div class="accordion">
+				{
+					jobs.map((job) => (
+						<details>
+							<summary>
+								<span>
+									<span class="job-title">
+										{job.title} – {job.company}
+									</span>
+									<span class="job-dates">{job.dates}</span>
+								</span>
+								<span class="chevron" aria-hidden="true" />
+							</summary>
+							<div class="content">
+								{job.intro && <p>{job.intro}</p>}
+								{job.bullets && (
+									<ul>
+										{job.bullets.map((b) => (
+											<li>{b}</li>
+										))}
+									</ul>
+								)}
+							</div>
+						</details>
+					))
+				}
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
